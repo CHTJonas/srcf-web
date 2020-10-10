@@ -19,6 +19,11 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
 RewriteCond %{HTTP_HOST} ^(docs|blog).srcf.net$
 RewriteRule .* - [L]
 
+# Block Git things
+RewriteRule \.git([^/]*$|/) - [forbidden]
+RewriteRule \.github([^/]*$|/) - [forbidden]
+RewriteRule \.mailmap$ - [forbidden]
+
 # NB: there was historically a permanent redirect from webmail.srcf.net to www.srcf.net/squirrelmail
 # which we should expect users to cache indefinitely -- so keep this pointing at something useful
 RewriteRule ^squirrelmail(\.html)?(/.*)? https://www.srcf.net/webmail [R,L]
